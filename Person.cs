@@ -1,4 +1,4 @@
-﻿class Person // Parent class
+﻿abstract class Person // Parent class
 {
     public string name;
     public int age;
