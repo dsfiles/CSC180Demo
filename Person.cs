@@ -1,20 +1,24 @@
-﻿using System;
-public class Person // parent class
+﻿class Person // Parent class
 {
     public string name;
     public int age;
-    public void DisplayNameAge()
+    public Person(string name, int age)
     {
-        Console.WriteLine($"{name} is {age} years old.");
+        this.name = name;
+        this.age = age;
     }
+    public void DisplayNameAge()
+    { System.Console.WriteLine($"{name} is {age} years old."); }
 }
-
-class Teacher : Person // Child class
-{
+class Teacher : Person
+{ // Child class 
     public string subject;
+    public Teacher(string name, int age, string subject) : base(name, age)
+    { this.subject = subject; }
 }
-
-class Student : Person // Child class
-{
+class Student : Person
+{ // Child class
     public double gpa;
+    public Student(string name, int age, double gpa) : base(name, age)
+    { this.gpa = gpa; }
 }
