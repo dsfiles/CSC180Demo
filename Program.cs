@@ -1,12 +1,13 @@
-﻿// version 6 - polymorphism
+﻿// version 7 – Properties
 public class Program
 {
     static void Main(string[] args)
     {
-        Teacher student = new Teacher("Tom", 55, "Computer Science");
-        
-        Student teacher = new Student("Sara", 19, 3.5);
+        Teacher teacher = new Teacher("Tom", 55, "Computer Science");
+        teacher.DisplayInfo();
+        Student student = new Student("Sara", 19, 3.5);
         student.DisplayInfo();
-        //teacher.DisplayInfo();
+        student.Gpa = 3.8;
+        student.DisplayInfo();
     }
 }
