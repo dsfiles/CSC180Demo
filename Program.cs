@@ -1,44 +1,30 @@
-﻿namespace TextWriter
-{
-    using System;
-    using System.IO;
+﻿using System;
+using System.IO;
 
+namespace Homework_10
+{
     class Program
     {
         static void Main(string[] args)
         {
-            string inputFile = "Hello.txt"; // Default input file name
-            string outputFile = "Hello2.txt"; // Default output file name
-
-            // Check if command line arguments are provided for input and output files
-            if (args.Length >= 2)
+            // Check if the correct number of command-line arguments are provided
+            if (args.Length != 2)
             {
-                inputFile = args[0];
-                outputFile = args[1];
+                Console.WriteLine("Usage: Program.exe Hello.cs Hello.cs2");
+                return;
             }
 
-            try
+            // Read input file line by line, add line numbers, and write to output file
+            using (StreamReader reader = new StreamReader(args[0]))
+            using (StreamWriter writer = new StreamWriter(args[1]))
             {
-                // Initialize line counter
                 int lineNumber = 1;
-
-                using (StreamReader reader = new StreamReader(inputFile))
-                using (StreamWriter writer = new StreamWriter(outputFile))
+                string line;
+                while ((line = reader.ReadLine()) != null)
                 {
-                    string line;
-                    while ((line = reader.ReadLine()) != null)
-                    {
-                        // Write the line number and the line to the output file
-                        writer.WriteLine($"{lineNumber}: {line}");
-                        lineNumber++;
-                    }
+                    writer.WriteLine($"{lineNumber}: {line}");
+                    lineNumber++;
                 }
-
-                Console.WriteLine("File read/write completed.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"An error occurred: {ex.Message}");
             }
         }
     }
