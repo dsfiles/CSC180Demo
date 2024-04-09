@@ -1,13 +1,15 @@
-﻿// version 7 – Properties
-public class Program
+﻿using System;
+class Point
 {
-    static void Main(string[] args)
+    
+{
+    static void Main()
     {
-        Teacher teacher = new Teacher("Tom", 55, "Computer Science");
-        teacher.DisplayInfo();
-        Student student = new Student("Sara", 19, 3.5);
-        student.DisplayInfo();
-        student.Gpa = 3.8;
-        student.DisplayInfo();
+        var p1 = new Point(1, 2);
+        var p2 = p1;
+        var p3 = new Point(1, 2);
+        Console.WriteLine(p1.Equals(p2));
+        Console.WriteLine(p1.Equals(p3));
+        Console.WriteLine($"p1's value is: {p1.ToString()}");
     }
 }
