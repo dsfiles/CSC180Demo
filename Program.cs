@@ -1,19 +1,20 @@
 ﻿using System;
-public struct Book
+interface IAnimal // Interface
 {
-    public string title, isbn;
-    public double price;
+    void animalSound(); // interface method (empty body)
 }
-public class Program
-{
-    public static void Main(string[] args)
+class Pig : IAnimal
+{  // Pig "implements" the IAnimal interface
+    public void animalSound()
     {
-        Book book1;
-        //Book book1 = new Book();
-        //Console.WriteLine(book1.price);
-        book1.title = "C# Programming";
-        book1.isbn = "180056810X";
-        book1.price = 42.74;
-        Console.WriteLine($"title: {book1.title}, ISBN: {book1.isbn}, Price: {book1.price}");
+        Console.WriteLine("The pig says: wee wee");
+    }
+}
+class Program
+{
+    static void Main(string[] args)
+    {
+        Pig myPig = new Pig();  // Create a Pig object
+        myPig.animalSound();
     }
 }
