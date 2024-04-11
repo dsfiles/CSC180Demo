@@ -1,24 +1,22 @@
 ﻿using System;
-public enum Color { Red, Green, Blue }
-public class Example
+using System.Collections.Generic;
+public class Program
 {
-    public static void Main()
+    public static void Main(string[] args)
     {
-        Color c = (Color)(new Random()).Next(0, 3);
-        switch (c)
+        var salmons = new List<string>();
+        salmons.Add("chinook");
+        salmons.Add("coho");
+        salmons.Add("pink");
+        salmons.Add("sockeye");
+        salmons.Remove("coho");
+        // Iterate through the list.
+        foreach (var salmon in salmons)
         {
-            case Color.Red:
-                Console.WriteLine("The color is red");
-                break;
-            case Color.Green:
-                Console.WriteLine("The color is green");
-                break;
-            case Color.Blue:
-                Console.WriteLine("The color is blue");
-                break;
-            default:
-                Console.WriteLine("The color is unknown.");
-                break;
+            Console.Write(salmon + " ");
         }
     }
 }
+
+// For more, visit:
+// https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/collections#BKMK_SimpleCollection
