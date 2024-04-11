@@ -1,20 +1,20 @@
 ﻿using System;
-interface IAnimal // Interface
-{
-    void animalSound(); // interface method (empty body)
+public class Book {
+    public string title, isbn;
+    public double price;
 }
-class Pig : IAnimal
-{  // Pig "implements" the IAnimal interface
-    public void animalSound()
-    {
-        Console.WriteLine("The pig says: wee wee");
+public class Program {
+    public static void Main(string[] args) {
+        Book book1 = new Book();
+        book1.title = "C# Programming";
+        book1.isbn = "180056810X";
+        book1.price = 42.74;
+        Console.WriteLine($"title: {book1.title}, ISBN: {book1.isbn}, Price: {book1.price}");
+        Console.WriteLine("book price increased!");
+        increateBookPrice(book1, 10);
+        Console.WriteLine($"title: {book1.title}, ISBN: {book1.isbn}, Price: {book1.price}");
     }
-}
-class Program
-{
-    static void Main(string[] args)
-    {
-        Pig myPig = new Pig();  // Create a Pig object
-        myPig.animalSound();
+    public static void increateBookPrice(Book book, double price) {
+        book.price += price;
     }
 }
