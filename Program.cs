@@ -1,6 +1,6 @@
 ﻿using System;
 public enum Season
-{ //names of enum members
+{ //names of enum members  
     Spring,
     Summer,
     Autumn,
