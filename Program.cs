@@ -1,70 +1,76 @@
-﻿using System;
+﻿
 
-namespace StringManipulation
+
+using System;
+using static System.Console;
+
+namespace MenuBuilder
 {
     class Program
     {
         static void Main(string[] args)
         {
-            bool showMenu = true;
-            while (showMenu)
+            // menu options string
+            string[] menuOptions =
+                {"Option 1", "Another options", "A third options", "This is another option", "Here is the new option!" ,"The last option","Exit"};
+
+            // build a menu object
+            var newMenu = new Menu(menuOptions, 1, 1);
+
+            // modify the menu for center justification
+            // menu can be modified to be left justified as well
+            newMenu.ModifyMenuCentered();
+
+            // center the menu to the console;
+            // this overrides the col param in initial construction
+            newMenu.CenterMenuToConsole();
+
+            // turn off the cursor blink
+            newMenu.ResetCursorVisible();
+
+            // RunMenu returns the selection
+
+            int selection = 0;
+
+            // this is a good place to use a switch statement for options
+            while (selection != 6)      // make this your exit case
             {
-                showMenu = MainMenu();
+                selection = newMenu.RunMenu();
+                WriteLine(menuOptions[selection] + "                   ");
+
+                //switch (selection)
+                //{
+                //    case 0:
+                //    {
+
+                //        Console.WriteLine("You selected option 1!        ");
+                //        //ReadKey();
+                //        //Clear();
+                //        break;
+                //    }
+                //    case 3:
+                //    {
+                //        Console.WriteLine("You picked the fourth option!");
+                //        //ReadKey();
+                //        //Clear();
+                //        break;
+                //    }
+                //    case -1:
+                //    {
+                //        Environment.Exit(0);
+                //        break;
+                //    }
+                //}
+
             }
-        }
-        private static bool MainMenu()
-        {
-            Console.Clear();
-            Console.WriteLine("Choose an option:");
-            Console.WriteLine("1) Reverse String");
-            Console.WriteLine("2) Remove Whitespace");
-            Console.WriteLine("3) Exit");
-            Console.Write("\r\nSelect an option: ");
 
-            switch (Console.ReadLine())
-            {
-                case "1":
-                    ReverseString();
-                    return true;
-                case "2":
-                    RemoveWhitespace();
-                    return true;
-                case "3":
-                    return false;
-                default:
-                    return true;
-            }
+            Console.WriteLine("Press Enter to Exit                     ");
+            ReadKey();
+
+
+
         }
 
-        private static string CaptureInput()
-        {
-            Console.Write("Enter the string you want to modify: ");
-            return Console.ReadLine();
-        }
 
-        private static void ReverseString()
-        {
-            Console.Clear();
-            Console.WriteLine("Reverse String");
-
-            char[] charArray = CaptureInput().ToCharArray();
-            Array.Reverse(charArray);
-            DisplayResult(String.Concat(charArray));
-        }
-
-        private static void RemoveWhitespace()
-        {
-            Console.Clear();
-            Console.WriteLine("Remove Whitespace");
-
-            DisplayResult(CaptureInput().Replace(" ", ""));
-        }
-
-        private static void DisplayResult(string message)
-        {
-            Console.WriteLine($"\r\nYour modified string is: {message}");
-            Console.Write("\r\nPress Enter to return to Main Menu");
-            Console.ReadLine();
-        }
     }
 }
