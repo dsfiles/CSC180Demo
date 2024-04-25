@@ -1,17 +1,34 @@
 ﻿using System;
-using System.Collections.Generic;
-public class Example
-{
-    public static void Main()
-    {
-        char c = 'a';
-        Console.WriteLine((int)c);
-        Console.WriteLine(c);
-        Console.WriteLine(c + 2);
-        Console.WriteLine('c' + 2);
-        Console.WriteLine((char)c + 2);
-        Console.WriteLine((char)(c+2));
 
+class Program
+{
+    static void Main(string[] args)
+    {
+        string plainText = "#Abc yz";
+        Console.WriteLine(plainText + " (original text)");
+        string encodedText = CaptainCrunch(plainText, 13);
+        Console.WriteLine(encodedText + " (encoded text)");
+        string decodedText = CaptainCrunch(encodedText, 13);
+        Console.WriteLine(decodedText + " (decoded text)");
     }
-  
-} // https://docs.microsoft.com/en-us/dotnet/api/system.collections.generic.linkedlist-1?view=net-8.0
+
+    public static string CaptainCrunch(string str, int n)
+    {
+        string result = "";
+        for (int i = 0; i < str.Length; i++)
+        {
+            int letter = (int)str[i];
+            if (str[i] >= 'A' && str[i] <= 'Z')
+            {
+                letter = (letter + n - (int)'A') % 26 + (int)'A';
+            }
+            if (str[i] >= 'a' && str[i] <= 'z')
+            {
+                letter = (letter + n - (int)'a') % 26 + (int)'a';
+            }
+            result += (char)letter;
+        }
+        return result;
+    }
+}
+
