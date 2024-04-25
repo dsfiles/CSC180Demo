@@ -1,116 +1,107 @@
-﻿using System.ComponentModel.Design;
-using System.Diagnostics;
+﻿using System;
+using System.ComponentModel.Design;
 
-namespace CapCrunch
+
+namespace programming_assignment_12
 {
-    internal class Program
+    class Program
     {
         static void Main(string[] args)
         {
-            while (true)
-            {
-                Console.WriteLine("Press 1 to use Encode Talker (Regular Capitan Crunch) or press 2 to use Decode Talker (add any number)");
-                string check = Console.ReadLine();
-                if (check == "1")
-                {
-                    Link.EncodeTalker();
-                    break;
-                }
-                else if (check == "2")
-                {
-                    Link.DecodeTalker();
-                    break;
-                }
-                else
-                {
-                    Console.WriteLine("Please follow the rules");
-                    Console.WriteLine();
-                }
-            }
+            Console.WriteLine("Please enter a string to be coded:");
+            string input = Console.ReadLine();
+            string output = CodedOutput(input);
+            string decodedOutput = DecodedOutput(output);
+
+            Console.WriteLine("Please enter a number between 0-25 to be used with coding:");
+            int Number = Console.Read();
+
+            //if (Number < 0 || Number > 25)
+            //{
+            //    Console.WriteLine("Invalid input. Please enter a number between 0 and 25:");
+            //}
+
+            string UserCoded = UserCodedOutput(input, Number);
+
+            Console.WriteLine("Your string is coded with default key as follows:\n" + output);
+            Console.WriteLine("Your string is decoded with default key as follows:\n" + decodedOutput);
+
+            Console.WriteLine("Your string is coded with your key number as follow:\n" + UserCoded);
+
         }
-        public class Link
+
+        static string CodedOutput(string input)
         {
-            public static void EncodeTalker()
+            char[] original = input.ToCharArray();
+            char[] coded = new char[input.Length];
+
+            for (int i = 0; i < input.Length; i++)
             {
-                Console.WriteLine("Please provide a word, no numbers nor special characters maybe used");
-                string Talker = Console.ReadLine();
-                string EncodedTalker = "";
-                foreach (char character in Talker)
+                if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) || (Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122))
                 {
-                    if (char.IsLetter(character))
-                    {
-                        bool MaybeUpper = char.IsUpper(character);
-
-                        int ascii = (int)character;
-
-                        ascii += 13;
-
-                        if (MaybeUpper)
-                        {
-                            if (ascii > (int)'Z')
-                                ascii -= 26;
-                        }
-                        else
-                        {
-                            if (ascii > (int)'z')
-                                ascii -= 26;
-                        }
-                        EncodedTalker += (char)ascii;
-                    }
-                    else
-                    {
-                        EncodedTalker += character;
-                    }
+                    int asciiValue = (int)original[i] + 13;
+                    if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) && asciiValue > 90)
+                        asciiValue -= 26;
+                    else if ((Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122) && asciiValue > 122)
+                        asciiValue -= 26;
+                    coded[i] = (char)asciiValue;
                 }
-                Console.WriteLine(EncodedTalker);
-            }
-            public static void DecodeTalker()
-            {
-                Console.WriteLine("please provide the desired number for Decoding/Encoding");
-                string DecodeEncode = Console.ReadLine();
-                if (int.TryParse(DecodeEncode, out int code)) ;
                 else
                 {
-                    Console.WriteLine("Please provide a valid number");
+                    coded[i] = original[i];
                 }
-
-                Console.WriteLine("Please provide a word, no numbers nor special characters maybe used");
-                string DTalker = Console.ReadLine();
-                string DecodedTalker = "";
-                foreach (char character in DTalker)
-                {
-                    if (char.IsLetter(character))
-                    {
-                        bool MaybeUpper = char.IsUpper(character);
-
-                        int ascii = (int)character;
-
-                        ascii += code;
-
-                        if (MaybeUpper)
-                        {
-                            if (ascii > (int)'Z')
-                                ascii -= 26;
-                            else if (ascii < (int)'A')
-                                ascii += 26;
-                        }
-                        else
-                        {
-                            if (ascii > (int)'z')
-                                ascii -= 26;
-                            else if (ascii < (int)'a')
-                                ascii += 26;
-                        }
-                        DecodedTalker += (char)ascii;
-                    }
-                    else
-                    {
-                        DecodedTalker += character;
-                    }
-                }
-                Console.WriteLine(DecodedTalker);
             }
+            return new string(coded);
         }
+
+        static string DecodedOutput(string output)
+        {
+            char[] original = output.ToCharArray();
+            char[] coded = new char[output.Length];
+
+            for (int i = 0; i < output.Length; i++)
+            {
+                if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) || (Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122))
+                {
+                    int asciiValue = (int)original[i] - 13;
+                    if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) && asciiValue < 65)
+                        asciiValue += 26;
+                    else if ((Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122) && asciiValue < 97)
+                        asciiValue += 26;
+                    coded[i] = (char)asciiValue;
+                }
+                else
+                {
+                    coded[i] = original[i];
+                }
+            }
+            return new string(coded);
+        }
+
+        static string UserCodedOutput(string input, int Number)
+        {
+            char[] original = input.ToCharArray();
+            char[] coded = new char[input.Length];
+            int UsethisNumber = Number;
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) || (Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122))
+                {
+                    int asciiValue = (int)original[i] + UsethisNumber;
+                    if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) && asciiValue > 90)
+                        asciiValue -= 26;
+                    else if ((Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122) && asciiValue > 122)
+                        asciiValue -= 26;
+                    coded[i] = (char)asciiValue;
+                }
+                else
+                {
+                    coded[i] = original[i];
+                }
+            }
+            return new string(coded);
+        }
+
     }
 }
-
