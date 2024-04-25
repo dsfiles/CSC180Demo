@@ -1,34 +1,116 @@
-﻿using System;
+﻿using System.ComponentModel.Design;
+using System.Diagnostics;
 
-class Program
+namespace CapCrunch
 {
-    static void Main(string[] args)
+    internal class Program
     {
-        string plainText = "#Abc yz";
-        Console.WriteLine(plainText + " (original text)");
-        string encodedText = CaptainCrunch(plainText, 13);
-        Console.WriteLine(encodedText + " (encoded text)");
-        string decodedText = CaptainCrunch(encodedText, 13);
-        Console.WriteLine(decodedText + " (decoded text)");
-    }
-
-    public static string CaptainCrunch(string str, int n)
-    {
-        string result = "";
-        for (int i = 0; i < str.Length; i++)
+        static void Main(string[] args)
         {
-            int letter = (int)str[i];
-            if (str[i] >= 'A' && str[i] <= 'Z')
+            while (true)
             {
-                letter = (letter + n - (int)'A') % 26 + (int)'A';
+                Console.WriteLine("Press 1 to use Encode Talker (Regular Capitan Crunch) or press 2 to use Decode Talker (add any number)");
+                string check = Console.ReadLine();
+                if (check == "1")
+                {
+                    Link.EncodeTalker();
+                    break;
+                }
+                else if (check == "2")
+                {
+                    Link.DecodeTalker();
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Please follow the rules");
+                    Console.WriteLine();
+                }
             }
-            if (str[i] >= 'a' && str[i] <= 'z')
-            {
-                letter = (letter + n - (int)'a') % 26 + (int)'a';
-            }
-            result += (char)letter;
         }
-        return result;
+        public class Link
+        {
+            public static void EncodeTalker()
+            {
+                Console.WriteLine("Please provide a word, no numbers nor special characters maybe used");
+                string Talker = Console.ReadLine();
+                string EncodedTalker = "";
+                foreach (char character in Talker)
+                {
+                    if (char.IsLetter(character))
+                    {
+                        bool MaybeUpper = char.IsUpper(character);
+
+                        int ascii = (int)character;
+
+                        ascii += 13;
+
+                        if (MaybeUpper)
+                        {
+                            if (ascii > (int)'Z')
+                                ascii -= 26;
+                        }
+                        else
+                        {
+                            if (ascii > (int)'z')
+                                ascii -= 26;
+                        }
+                        EncodedTalker += (char)ascii;
+                    }
+                    else
+                    {
+                        EncodedTalker += character;
+                    }
+                }
+                Console.WriteLine(EncodedTalker);
+            }
+            public static void DecodeTalker()
+            {
+                Console.WriteLine("please provide the desired number for Decoding/Encoding");
+                string DecodeEncode = Console.ReadLine();
+                if (int.TryParse(DecodeEncode, out int code)) ;
+                else
+                {
+                    Console.WriteLine("Please provide a valid number");
+                }
+
+                Console.WriteLine("Please provide a word, no numbers nor special characters maybe used");
+                string DTalker = Console.ReadLine();
+                string DecodedTalker = "";
+                foreach (char character in DTalker)
+                {
+                    if (char.IsLetter(character))
+                    {
+                        bool MaybeUpper = char.IsUpper(character);
+
+                        int ascii = (int)character;
+
+                        ascii += code;
+
+                        if (MaybeUpper)
+                        {
+                            if (ascii > (int)'Z')
+                                ascii -= 26;
+                            else if (ascii < (int)'A')
+                                ascii += 26;
+                        }
+                        else
+                        {
+                            if (ascii > (int)'z')
+                                ascii -= 26;
+                            else if (ascii < (int)'a')
+                                ascii += 26;
+                        }
+                        DecodedTalker += (char)ascii;
+                    }
+                    else
+                    {
+                        DecodedTalker += character;
+                    }
+                }
+                Console.WriteLine(DecodedTalker);
+            }
+        }
     }
 }
 
