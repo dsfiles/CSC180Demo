@@ -1,107 +1,47 @@
-﻿using System;
-using System.ComponentModel.Design;
+﻿/* Kyle Stackpole
+ * Week 12 homework
+ */
 
-
-namespace programming_assignment_12
+namespace Week_10_homework
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Please enter a string to be coded:");
-            string input = Console.ReadLine();
-            string output = CodedOutput(input);
-            string decodedOutput = DecodedOutput(output);
+            string input = "Abc yz---";
+            int shiftAmount = 13;
 
-            Console.WriteLine("Please enter a number between 0-25 to be used with coding:");
-            int Number = Console.Read();
+            string encoded = CaptainCrunch(input, shiftAmount);
+            Console.WriteLine("Encoded: " + encoded);
 
-            //if (Number < 0 || Number > 25)
-            //{
-            //    Console.WriteLine("Invalid input. Please enter a number between 0 and 25:");
-            //}
-
-            string UserCoded = UserCodedOutput(input, Number);
-
-            Console.WriteLine("Your string is coded with default key as follows:\n" + output);
-            Console.WriteLine("Your string is decoded with default key as follows:\n" + decodedOutput);
-
-            Console.WriteLine("Your string is coded with your key number as follow:\n" + UserCoded);
-
+            string decoded = CaptainCrunch(encoded, -shiftAmount);
+            Console.WriteLine("Decoded: " + decoded);
         }
 
-        static string CodedOutput(string input)
+        static string CaptainCrunch(string input, int shiftAmount)
         {
-            char[] original = input.ToCharArray();
-            char[] coded = new char[input.Length];
+            char[] result = new char[input.Length];
 
             for (int i = 0; i < input.Length; i++)
             {
-                if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) || (Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122))
+                char currentChar = input[i];
+
+                if (char.IsLetter(currentChar))
                 {
-                    int asciiValue = (int)original[i] + 13;
-                    if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) && asciiValue > 90)
-                        asciiValue -= 26;
-                    else if ((Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122) && asciiValue > 122)
-                        asciiValue -= 26;
-                    coded[i] = (char)asciiValue;
+                    bool isUpper = char.IsUpper(currentChar);
+                    char baseChar = isUpper ? 'A' : 'a';
+
+                    int shiftedChar = (currentChar - baseChar + shiftAmount) % 26;
+                    if (shiftedChar < 0) shiftedChar += 26;
+
+                    result[i] = (char)(shiftedChar + baseChar);
                 }
                 else
                 {
-                    coded[i] = original[i];
+                    result[i] = currentChar;
                 }
             }
-            return new string(coded);
+            return new string(result);
         }
-
-        static string DecodedOutput(string output)
-        {
-            char[] original = output.ToCharArray();
-            char[] coded = new char[output.Length];
-
-            for (int i = 0; i < output.Length; i++)
-            {
-                if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) || (Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122))
-                {
-                    int asciiValue = (int)original[i] - 13;
-                    if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) && asciiValue < 65)
-                        asciiValue += 26;
-                    else if ((Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122) && asciiValue < 97)
-                        asciiValue += 26;
-                    coded[i] = (char)asciiValue;
-                }
-                else
-                {
-                    coded[i] = original[i];
-                }
-            }
-            return new string(coded);
-        }
-
-        static string UserCodedOutput(string input, int Number)
-        {
-            char[] original = input.ToCharArray();
-            char[] coded = new char[input.Length];
-            int UsethisNumber = Number;
-
-            for (int i = 0; i < input.Length; i++)
-            {
-                if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) || (Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122))
-                {
-                    int asciiValue = (int)original[i] + UsethisNumber;
-                    if ((Convert.ToInt32(original[i]) >= 65 && Convert.ToInt32(original[i]) <= 90) && asciiValue > 90)
-                        asciiValue -= 26;
-                    else if ((Convert.ToInt32(original[i]) >= 97 && Convert.ToInt32(original[i]) <= 122) && asciiValue > 122)
-                        asciiValue -= 26;
-                    coded[i] = (char)asciiValue;
-                }
-                else
-                {
-                    coded[i] = original[i];
-                }
-            }
-            return new string(coded);
-        }
-
     }
 }
