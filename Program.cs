@@ -1,13 +1,28 @@
-﻿namespace Time
+﻿using System;
+class Program
 {
-    internal class Program
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
+
+        Console.WriteLine(Factorial(4));
+        Console.WriteLine(FactorialRecur(4));
+    }
+
+    static int Factorial(int n)
+    {
+        int fact = 1;
+        for (int i = 1; i <= n; i++)
         {
-            int hour, minute, second;
-            hour = 13; minute = 48; second = 55;
-            int intSecondSinceMidnight = hour*60*60 + minute*60 + second;
-            Console.WriteLine(intSecondSinceMidnight);
+            fact = fact * i;
         }
+        return fact;
+    }
+
+    static int FactorialRecur(int n)
+    {
+        if (n == 0)
+            return 1;
+        else
+            return n * FactorialRecur(n - 1);
     }
 }
