@@ -1,22 +1,8 @@
 ﻿using System;
-namespace ThinkSharp
+namespace CSC180Demo
 {
-    public class Time
+    public class Program
     {
-        public int Hour, Minute;
-        public double Second;
-        public Time()
-        {   // Default constructor
-            this.Hour = 0;
-            this.Minute = 0;
-            this.Second = 0.0;
-        }
-        public Time(int hour, int minute, double second)
-        {   // Parametric constructor
-            this.Hour = hour;
-            this.Minute = minute;
-            this.Second = second;
-        }
         public static void Main(string[] args)
         {   // one way to create and initialize a Time object
             Time t1 = new Time();
