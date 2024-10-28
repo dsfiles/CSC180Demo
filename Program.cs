@@ -26,7 +26,7 @@ namespace ThinkSharp
             Console.WriteLine(t1); // what's the output?
             // another way to do the same thing
             Time t2 = new Time(11, 8, 3.14);
-            Console.WriteLine(t2); // what's the output again?
+            Console.WriteLine(t2.Hour); // what's the output again?
         }
     }
 }
