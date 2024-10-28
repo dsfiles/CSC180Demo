@@ -1,39 +1,32 @@
 ﻿using System;
-class Program
+namespace ThinkSharp
 {
-    static void Main(string[] args)
+    public class Time
     {
-
-        //Console.WriteLine(Factorial(21));
-        //Console.WriteLine(FactorialRecur(21));
-        CountDown(5);
-    }
-
-    static void CountDown(int n)
-    {
-        if (n== 0) Console.WriteLine("blastoff!"); 
-        else 
-        { 
-            Console.WriteLine(n);
-            CountDown(n - 1);
+        public int Hour, Minute;
+        public double Second;
+        public Time()
+        {   // Default constructor
+            this.Hour = 0;
+            this.Minute = 0;
+            this.Second = 0.0;
         }
-    }
-
-    static int Factorial(int n)
-    {
-        int fact =1;
-        for (int i = 1; i <= n; i++)
-        {
-            fact = fact * i;
+        public Time(int hour, int minute, double second)
+        {   // Parametric constructor
+            this.Hour = hour;
+            this.Minute = minute;
+            this.Second = second;
         }
-        return fact;
-    }
-
-    static double FactorialRecur(int n)
-    {
-        if (n == 0)
-            return 1;
-        else
-            return n * FactorialRecur(n - 1);
+        public static void Main(string[] args)
+        {   // one way to create and initialize a Time object
+            Time t1 = new Time();
+            t1.Hour = 11;
+            t1.Minute = 8;
+            t1.Second = 3.14;
+            Console.WriteLine(t1); // what's the output?
+            // another way to do the same thing
+            Time t2 = new Time(11, 8, 3.14);
+            Console.WriteLine(t2); // what's the output again?
+        }
     }
 }
