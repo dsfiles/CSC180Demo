@@ -1,25 +1,56 @@
-﻿using System;
-namespace CSC180Demo
+﻿
+public class Vehicle // base class
 {
-    public class Program
+    public string model;
+    public int year;
+    public Vehicle(string model, int year)
     {
-        public static void Main(string[] args)
-        {
-            Time t1 = new Time();
-            t1.Hour = 11;
-            t1.Minute = 8;
-            t1.Second = 3.14;
-            Console.WriteLine(t1);
-
-            Time t2 = new Time(11, 8, 3.14);
-            Console.WriteLine(t2);
-
-            // test various "WriteTime" methods
-            Time.WriteTime(t1);
-            Time.WriteTime2(t1);
-            t1.WriteTime3();
-            t1.WriteTime4(t1);
-            t2.WriteTime4(t1);
-        }
+        this.model = model;
+        this.year = year;
+    }
+    public void DisplayModelYear()
+    {
+        Console.WriteLine($"model: {model}, year: {year}");
     }
 }
+
+public class Car : Vehicle
+{
+    private int seating_capacity;
+    public Car(string model, int year, int capacity) : base(model, year)
+    {
+        seating_capacity = capacity;
+    }
+    public void DisplayInfo()
+    {
+        this.DisplayModelYear();
+        Console.WriteLine($"seating capacity: {seating_capacity}");
+    }
+}
+
+public class Truck : Vehicle
+{
+    private int load_capacity;
+    public Truck(string model, int year, int capacity) : base(model, year)
+    {
+        load_capacity = capacity;
+    }
+    public void DisplayInfo()
+    {
+        DisplayModelYear();
+        Console.WriteLine($"load capacity: {load_capacity} tons");
+    }
+}
+
+
+public class Program
+{
+    static void Main(string[] args)
+    {
+        var car = new Car("Honda Accord", 2019, 5);
+        var truck = new Truck("kenworth W990", 2020, 50);
+        car.DisplayInfo();
+        truck.DisplayInfo();
+    }
+}
+
